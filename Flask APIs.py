@@ -51,6 +51,6 @@ void run_RF(formInput):
     from sklearn.tree import DecisionTreeClassifier 
     dtree_model = DecisionTreeClassifier(max_depth = 4).fit(X_train, y_train) # make this a global variable so you can just use dtree_model rather than having to train it again. 
     
-    output = dtree_model.predict(new_input)
+    output = dtree_model.predict(formInput)
     print("classification: ", output)
 
