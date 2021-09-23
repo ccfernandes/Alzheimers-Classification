@@ -1,0 +1,92 @@
+<!-- registration form -->
+{% extends "layout.html" %}
+{% block content %}
+<style>
+
+
+    .inside-group{
+        padding-top: 15px;
+        padding-right: 50px;
+        padding-left: 50px;
+    }
+
+    ul.ba {
+    list-style-type: none;
+    }
+
+    .form-group{
+        padding-right: 40px;
+        padding-left: 40px;
+        border-width:2px;
+        border-style:solid;
+        border-color:black;
+    }
+
+    .form-heading{
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        background-color: #efd9d4;
+    }
+}
+</style>
+
+ <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <legend class="border-bottom mb-4">Please Fill out the Following Information:</legend>
+            <fieldset class="inside-group">
+            {% for f in form if f.name != 'csrf_token'%}
+                <div class="inside-group">
+                    <hr>
+                    {% if f.name == 'age' %}
+                        <div class="form-heading">
+                            <h4>Demographic Data</h4>
+                        </div>
+                        <hr>
+                    {% endif %}
+                    {% if f.name == 'ICV' %}
+                        <div class="form-heading">
+                            <h4>Imaging Data</h4>
+                        </div>
+                        <small class="text-muted">Note: All brain volumes measured in mm^3</small>
+                        <hr>
+                    {% endif %}
+                    {% if f.name == 'mmse' %}
+                        <div class="form-heading">
+                            <h4>Cognitive and Behavioral Data</h4>
+                        </div>
+                        <hr>
+                    {% endif %}
+                    {% if f.name == 'apoe4' %}
+                        <div class="form-heading">
+                            <h4>Biomarkers</h4>
+                        </div>
+                        <hr>
+                    {% endif %}
+
+                    {% if f.type == 'RadioField' %}
+                        <b>{{ f.label(class="form-control-label") }} </b>
+                        {{ f(class="", style="list-style:none") }}
+                    {% elif f.name != 'submit' %}
+                            <b>{{ f.label(class="form-control-label") }}</b>
+                            <small class="text-muted">{{ f.description }}</small>
+                            {% if f.errors %}
+                                {{ f(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in f.errors %}
+                                        <span>{{ error }}</span>
+                                        {% print(error)%}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ f(class="form-control form-control-lg ") }}
+                            {% endif %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+            </fieldset>
+            <div class="inside-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+{% endblock content %}

@@ -1,0 +1,149 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+	.box{
+		padding: 30px;
+	}
+
+	.intro{
+		border-style: solid;
+		background-color: white;
+		padding: 20px;
+		padding-left: 40px;
+		padding-right: 40px;
+		text-align: center;
+		border-color: maroon;
+		border-width: 2px;
+	}
+	.ds_list{
+		padding-left: 100px;
+		padding-right: 100px;
+	}
+
+	.info{
+		padding: 20px;
+	}
+
+	.table{
+		background-color: white;
+	}
+
+	h4{
+		color: maroon;
+	}
+</style>
+<div class="box">
+	<div class="intro">
+		<p>Welcome to the Alzhiemer's Disease Classification Diagnostic Support Tool. The goal of this tool is to aid in the diagnosis of a patient using a machine learning algorithm along with various clinical parameters that you have likely already collected from the patient. Note that this model should NOT be used as a standalone tool to diagnose a patient, and should rather be used as an additive to a physician's expertise. </p>
+		<hr>
+		<p>For transparency, we have provided information about the machine learning model and dataset that is currently being used for this tool below. State total num of patients, and how many in each of the diagnostic groups. also early and late MCI is treated as one group (combined) </p>
+	</div>
+	<div class="info">
+		<h4>About the Model</h4>
+			<ul>
+			  <li>Classification algorithm: Decision Tree</li>
+			  <li>Using Python's Scikit Library</li>
+			  <li>Missing training data was imputted using a KNN (K-Nearest Neighbor) algorithm</li>
+			</ul>
+	</div>
+	<hr>
+	<div class="info">
+		<h4>Dataset</h4>
+		<img src="static/assets/adni_logo2.png" alt="adni-logo" style="float: left;" >
+		<div>
+			<ul>
+				<li>The model was trained using ADNI's GO and 2 datasets.</li>
+				<li>Early and Late Mild Cognitive Impairment has been collapsed into one category (MCI) </li>
+				<li>Using longitudinal patient data </li>
+			  <li>Number of Patients Represented: 1,194</li>
+			  <li>Breakdown of Patients By Class: </li>
+			  <li>Cognitively Normal: 359</li>
+			  <li>Mild Cognitively Impairment: 673</li>
+			  <li>Alzheimer's Disease: 162 </li>
+			</ul>
+		</div>
+	</div>
+	<hr>
+	<div class="info">
+		<h4>Included Features </h4>
+		<p>Below is a list of all features that were used to train our model</p>
+		<h5>Demographical Data</h5>
+		<table class="table">
+			  <thead>
+			    <tr>
+			      <th scope="col"></th>
+			      <th scope="col">Age</th>
+			      <th scope="col">Gender</th>
+			      <th scope="col">Marital Status</th>
+			      <th scope="col">Education</th>
+			      <th scope="col">Racial Origin</th>
+			      
+			    </tr>
+			  </thead>
+		</table>
+
+		<h5>Cognitive and Behavioral Data</h5>
+		<table class="table">
+			  <thead>
+			    <tr>
+			      <th scope="col"></th>
+			      <th scope="col">ADAS11</th>
+			      <th scope="col">ADAS13</th>
+			      <th scope="col">MMSE</th>
+			      <th scope="col">FAQTOTAL</th>
+			      <th scope="col">RAVLT</th>
+			    </tr>
+			  </thead>
+		</table>
+
+		<h5>Imaging Data</h5>
+		<table class="table">
+			  <thead>
+			    <tr>
+			      <th scope="col"></th>
+			      <th scope="col">ICV</th>
+			      <th scope="col">Cerebral Vol.</th>
+			      <th scope="col">CSF Vol.</th>
+			      <th scope="col">Hippocampal Vol.</th>
+			      <th scope="col">Ventricular Vol.</th>
+			      <th scope="col">Entorhinal Vol.</th>
+			      
+			    </tr>
+			  </thead>
+		</table>
+
+		<h5>Biomarkers</h5>
+		<table class="table">
+			  <thead>
+			    <tr>
+			      <th scope="col"></th>
+			      <th scope="col">APOE Allele</th>
+			      <th scope="col">ABETA</th>	      
+			    </tr>
+			  </thead>
+		</table>
+	</div>
+	<hr>
+	<div class="info">
+		<h4>Performance Metrics: </h4>
+		<h5>Proposed model accuracy: 77.3% </h5>
+
+		<h5>Feature Contributions</h5>
+		<p>The following features played the biggest role in classifying the patient: </p>
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">Feature Contribution</th>
+		      <th scope="col">MMSE</th>
+		      <th scope="col">FAQTOTAL</th>
+		      <th scope="col">ADAS11</th>
+		      <th scope="col">ADAS13</th>
+		      <th scope="col">CSF Volume</th>
+		      <th scope="col">Age</th>
+		    </tr>
+		  </thead>
+		</table>
+	</div>
+</div>
+{% endblock content %}

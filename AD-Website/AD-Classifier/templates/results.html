@@ -1,0 +1,197 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+
+	.classification{
+		border-width:1px;
+		border-style:solid;
+		border-color: #f2dcc9;
+		background-color: #f2dcc9;
+		width: 90%;
+		margin: auto;
+		padding: 10px;
+		text-align: center;
+	}
+
+	.patient-data{
+		border-style:solid;
+		border-width:1px;
+		border-color: #e8d8c3;
+		border-color: white;
+		background-color: white;
+	}
+
+	.patient-inner{
+		padding-left: 40px;
+		padding-right: 40px;
+		padding-bottom: 20px;
+		padding-top: 15px;
+	}
+
+	.feature-importance{
+		margin-left: auto;
+		margin-right: auto;
+		width: 80%;
+		border-style:solid;
+		border-width:1px;
+		/*border-color: #f2dcc9;*/
+		border-color: white;		
+		background-color: white;
+	}
+	.feature-importance h4{
+		margin-left: auto;
+		width: 95%;
+	}
+	
+	.featureInner{
+		display: block;
+		  margin-left: auto;
+		  width: 80%;
+		padding-bottom: 10px;
+	}
+
+	.banner{
+		padding-top: 15px;
+		padding-bottom: 15px;
+		padding-left: 20px;
+		color: black;
+		background-color: #ede5e3;
+	}
+
+	.spacing{
+		padding-top: 20px;
+		padding-bottom: 20px;
+		padding-right: 30px;
+		padding-left: 30px;
+	}
+
+	.patient-info{
+		padding-left: 30px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		border-style:solid;
+		border-width:1px;
+		border-color: lightgrey;		
+		/*background-color: lightgrey;*/
+	}
+
+	.patient-info-box{
+		margin-right: auto;
+		width: 35%;
+	}
+
+	h5{
+		color: maroon;
+	}
+
+</style>
+<div class="patient-info-box">
+	<div class="patient-info">
+		<h6>MRN: #{{mrn}}</h6>
+		<h6>date generated: {{date_time}}</h6>
+	</div>
+</div>
+<div class="spacing"></div>
+<div class="classification">
+	<h3>Classification:</h3>
+	<h3><b>{{ classification }}</b></h3>
+</div>
+
+<div class="spacing"></div>
+<div class="feature-importance">
+	<div class="banner">
+		<h4>How Confident Are We?</h4>
+	</div>
+	<div class="featureInner">
+		
+	<!-- <h4>Feature Importance (Tree Interpreter or LIME) here  </h4> -->
+	<!-- {% for val in mylist %}
+		<h4>{{val}}</h4>
+	{% endfor %} -->
+	<div id="piechart"></div>
+	</div>
+</div>
+<div class="spacing"></div>
+<div class="patient-data">
+	<div class="banner">
+		<h4>Patient Data</h4>
+	</div>
+	<div class="patient-inner">
+		<p>The following data was inputted into the model resulting in the provided classification:</p>
+		<h5>Cognitive and Behavioral Data Data</h5>
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col"></th>
+		      <th scope="col">ADAS11</th>
+		      <th scope="col">ADAS13</th>
+		      <th scope="col">MMSE</th>
+		      <th scope="col">FAQTOTAL</th>
+		      <th scope="col">RAVLT</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		    	<th scope="row"></th>
+		      	<td>{{obj.adas11}}</td>
+		      	<td>{{obj.adas13}}</td>
+		       	<td>{{obj.mmse}}</td>
+		       	<td>{{obj.FAQTOTAL}}</td>
+		       	<td>{{obj.RAVLT_immediate}}</td>
+		    </tr>
+		  </tbody>
+		</table>
+		<h5>Imaging Data</h5>
+		<p>Note: The values below reflect a ratio between brain volume and ICV</p>
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col"></th>
+		      <th scope="col">ICV</th>
+		      <th scope="col">Cerebral</th>
+		      <th scope="col">CSF</th>
+		      <th scope="col">Hippocampal</th>
+		      <th scope="col">Ventricular</th>
+		      <th scope="col">Entorhinal</th>
+		      
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		    	<th scope="row"></th>
+		    	<td>{{obj.ICV}}</td>
+		      	<td>{{obj.CEREBRUM}}</td>
+		      	<td>{{obj.Ventricles}}</td>
+		       	<td>{{obj.Entorhinal}}</td>
+		       	<td>{{obj.HIPPO}}</td>
+		       	<td>{{obj.CSF}}</td>
+		    </tr>
+		  </tbody>
+		</table>
+	</div>
+</div>
+<div class="spacing"></div>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+// Draw the chart and set the chart values
+function drawChart() {
+  var letters = {{ mylist|safe }};
+  var data = google.visualization.arrayToDataTable(letters);
+
+  // Optional; add a title and set the width and height of the chart
+  var options = {'title':'Classification Confidence', 'width':700, 'height':400};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data, options);
+}
+</script>
+
+{% endblock content %}

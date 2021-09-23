@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- metadata -->
+	<meta http-equiv="Content-Type" content="text/html:charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
+
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+	{% if title %}
+	<title>AD Classifier - {{ title }}</title>
+	{% else %}
+	<title>AD Classifier<title>
+		{% endif %}
+	</head>
+	<style>
+		body{
+			background-color: #fefcf7;
+			padding-top: 30px;
+		}
+
+		.myform{
+			padding-top: 15px; 
+			padding-left: 20px;
+			padding-right: 20px;
+			padding-bottom: 30px;
+		}
+
+		.navbar {
+		  overflow: hidden;
+		  background-color: #800000;
+		  position: fixed;
+		  top: 0;
+		  width: 150%;
+		  z-index:300;
+		}
+		.navbar h1{
+			color: white;
+			text-decoration-style: none;
+		}
+
+		.navbar a{
+			  float: right;
+			  display: block;
+			  color: #f2f2f2;
+			  text-align: center;
+			  padding: 14px 16px;
+			  text-decoration: none;
+			  font-size: 17px;
+		}
+	</style>
+	<header>
+		<h1>Alzheimer's Disease Classifier</h1>
+		<hr>
+	</header>
+	<body>
+		<div class="navbar">
+			<a href="{{ url_for('home') }}"><h1>Alzheimer's Disease Classifier</h1></a>
+			<a href="{{ url_for('form') }}">New Form</a>
+			<h2></h2>
+		</div>
+		<div class="myform">
+			{% with messages = get_flashed_messages(with_categories=true) %}
+				{% if messages %}
+					{% for category, message in messages %}
+						<div class='alert alert-{{category}}'>
+							{{ message }}
+						</div>
+					{% endfor %}
+				{% endif %}
+			{% endwith %}
+			 {% block content %}{% endblock %}
+		</div>
+	</body>
+	</html>
