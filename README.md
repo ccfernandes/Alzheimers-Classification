@@ -31,8 +31,10 @@ A similar thought-process was done when analyzing the boxplot corresponding to e
 ## Website and Results
 
 For our final model, we decided to implement a random forest multiclass-classification model. The feature contribution is conveyed through the pie chart below. The features MMSE and FAQ_TOTAL contributed most to the overall classification, which aligns with the scientific data regarding commons methods of diagnosing Alzheimer's Disease patients. 
+
 ![feature_contrib](https://user-images.githubusercontent.com/37026923/134597477-70d17360-28c4-4bbf-ae51-9668a771819b.png)
 
 Below is an example of the pie chart that is displayed to the user defining the predicted classification based on inputted data. 
+
 ![website_output](https://user-images.githubusercontent.com/37026923/134597375-4bfacd4c-a466-4ee4-bb23-e179fbcaf1dd.png)
 
